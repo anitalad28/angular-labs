@@ -1,0 +1,158 @@
+<div class="container" [hidden]="!isSaved">
+  <form name="frmProduct" [formGroup]="frmProduct" (submit)="save()">
+    <div class="form-group">
+      <label for="ProductId">ProductId</label>
+      <!-- <input
+        type="text"
+        name="ProductId"
+        class="form-control"
+        required
+        pattern="[0-9]+"
+        minlength="2"
+        maxlength="5"
+        formControlName="ProductId"
+      /> -->
+      <input
+        type="text"
+        name="ProductId"
+        class="form-control"
+        formControlName="ProductId"
+      />
+      <div
+        *ngIf="
+          frmProduct.controls.ProductId.dirty &&
+          !frmProduct.controls.ProductId.valid
+        "
+        class="alert alert-danger"
+      >
+        <p *ngIf="frmProduct.controls.ProductId.errors.required">
+          Product Id is Must
+        </p>
+        <p *ngIf="frmProduct.controls.ProductId.errors.pattern">
+          Product Id Must be numeric
+        </p>
+        <p *ngIf="frmProduct.controls.ProductId.errors.minlength">
+          Product Id Must be min 2 digits in length
+        </p>
+        <p *ngIf="frmProduct.controls.ProductId.errors.maxlength">
+          Product Id Must be max 5 digits in length
+        </p>
+        <p *ngIf="frmProduct.controls.ProductId.errors.invalid">
+            Product Id Must be unique
+        </p> 
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="ProductName">ProductName</label>
+      <input
+        type="text"
+        name="ProductName"
+        class="form-control"
+        formControlName="ProductName"
+      />
+      <div
+        *ngIf="
+          frmProduct.controls.ProductName.dirty &&
+          !frmProduct.controls.ProductName.valid
+        "
+        class="alert alert-danger"
+      >
+        <p *ngIf="frmProduct.controls.ProductName.errors.required">
+          Product Name is Must
+        </p>
+        <p *ngIf="frmProduct.controls.ProductName.errors.pattern">
+          Product Name first character must be in caps and do not contain any number.
+        </p>
+        <p *ngIf="frmProduct.controls.ProductName.errors.invalid">
+          Only Contain 2 spaces
+        </p>        
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="CategoryName">CategoryName</label>
+      <select
+        class="form-control"
+        name="CategoryName"
+        formControlName="CategoryName"
+      >
+      <option value="0">Select Category</option>
+      <option *ngFor="let c of categories" value="{{ c }}">{{ c }}</option>
+      </select>
+      <div
+        *ngIf="
+          frmProduct.controls.CategoryName.dirty &&
+          !frmProduct.controls.CategoryName.valid
+        "
+        class="alert alert-danger"
+      >
+        <p *ngIf="frmProduct.controls.CategoryName.errors.invalid">
+          Please select category Name
+        </p>        
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="Price">Price</label>
+      <input
+        type="text"
+        class="form-control"
+        name="Price"
+        formControlName="Price"
+      />
+      <div
+        *ngIf="
+              frmProduct.controls.Price.dirty && 
+              !frmProduct.controls.Price.valid
+              "
+        class="alert alert-danger"
+      >
+        <span *ngIf="frmProduct.controls.Price.invalid">Price must be positive</span>
+      </div>
+    </div>
+    <div>
+      <input
+        type="button"
+        value="New"
+        class="btn btn-default"
+        (click)="clear()"
+      />
+      <input
+        type="submit"
+        [disabled]="!frmProduct.valid"
+        value="Save"
+        class="btn btn-success"
+      />
+    </div>
+  </form>
+</div>
+<div class="container" [hidden]="isSaved">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+          <td>
+              <input type="checkbox" name="selectAll" [(ngModel)]="isChecked" (change)="checkAll($event)" >
+          </td>
+        <td *ngFor="let c of tableHeaders">{{ c }}</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of products" (click)="getselectedrow(p)">
+        <td>
+            <input type="checkbox" name="selectAll" id="selectAll" [(ngModel)]="p.Checked" (click)="CheckUncheckHeader(p.ProductId)">
+        </td>
+        <td *ngFor="let c of tableHeaders">{{ p[c] }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6">
+          <input
+            type="button"
+            value="Load Form"
+            (click)="loadForm()"
+            class="btn btn-warning"
+          />
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

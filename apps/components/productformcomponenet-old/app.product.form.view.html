@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container" [hidden]="!isSaved">
+        <form action="" name="frmProduct" [formGroup]="frmProduct" (submit)="save()">
+            <div class="form-group">
+                <label for="productId"> product Id </label>
+                <input
+                    type="text"
+                    name="ProductId" 
+                    class="form-control"
+                    required
+                    pattern="[0-9]+" 
+                    minlength="2"   
+                    maxlength="5"                 
+                    formControlName="ProductId"
+                >
+            </div>
+            <div class="form-group">
+                <label for="productName"> Product Name </label>
+                <input
+                    type="text"
+                    name="ProductName" 
+                    class="form-control"                     
+                    formControlName="ProductName"
+                >
+            </div>
+            <div class="form-group">
+                <label for="categoryName"> Category Name </label>
+                <input
+                    type="text"
+                    name="CategoryName" 
+                    class="form-control"                     
+                    formControlName="CategoryName"
+                >            
+            </div>
+            <div class="form-group">
+                <label for="price"> Price </label>
+                <input
+                    type="text"
+                    name="Price" 
+                    class="form-control"                     
+                    formControlName="Price"
+                >
+            </div>
+            <input type="button" value="New" class="btn btn-default" (click)="clear()">
+            <input type="submit" value="Save" class="btn btn-success" >
+        </form>
+    </div>
+    <div class="container" [hidden]="isSaved">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>                   
+                    <td *ngFor="let c of tableHeaders">                        
+                        {{ c }}
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of products" (click)="getSelectedRow(p)">                    
+                    <td *ngFor="let c of tableHeaders">
+                        {{ p[c] }}
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                        <!-- <input type="button" class="btn btn-warning" value="Load Form" (click)="loadForm()">
+                        --> 
+                        <input type="button" class="btn btn-warning" value="Load Form" (click)="loadForm()">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</body>
+</html>

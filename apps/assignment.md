@@ -1,0 +1,19 @@
+- Schema fields
+  - Personal Information Schema
+    - PersonalUniqueueID
+    - full name
+      - First Name, Middle Name, Last Name
+    - Gender
+    - Date-Of-Birth
+    - Age
+    - Address
+      - Flat/Bunglow Number
+      - Society Name
+      - Street Name/Area Name
+    - city
+    - State
+    - Pincode
+    - Phone no
+    - Mobile no
+    - 
+
